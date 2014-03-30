@@ -8,7 +8,7 @@ def annotation(name):
             if not hasattr(question, name):
                 setattr(question, name, [])
             getattr(question, name).extend(values)
-            return WriteTheOutput.convert_or_passthrough(question)
+            return Question.convert_or_passthrough(question)
         return wrapper
     annotate.__name__ = name
     return annotate
@@ -83,7 +83,7 @@ class Question(object):
         s += '\n'
         return str(s)
     def solve(self, attempt):
-        normalize = lambda x: re.sub("'", '"', re.sub(r'\s', '', x))
+        normalize = lambda x: re.sub("'", '"', re.sub(r'\s', '', repr(x)))
         return normalize(repr(attempt)) in [normalize(c) for c in self.corrects]
     @property
     def answers(self):
@@ -129,6 +129,10 @@ def true(func):
 def false(func):
     assert not func()
     func.wrongs = [True]
+    return MultipleChoice.convert_or_passthrough(func)
+
+def yeahok(func):
+    func.wrongs = []
     return MultipleChoice.convert_or_passthrough(func)
 
 question = Question.from_func

@@ -1,4 +1,4 @@
-from questions import source, reference, hint, difficulty, wrong, tag, affirm, question, ignoreresult, correct, wrong, yes, no, true, false
+from questions import source, reference, hint, difficulty, wrong, tag, affirm, question, ignoreresult, correct, wrong, yes, no, true, false, yeahok
 from questions import MultipleChoice, Checkbox, Question
 
 underscore = MultipleChoice('What does _ do at the interactive prompt?',
@@ -215,6 +215,30 @@ def memory4():
     l1 = ['asdfasdlfk jas;ldfsd;lkfj as;ldkfj asl;dkfj asl;kfj ']
     l2 = ['']
     return l1.__sizeof__() == l2.__sizeof__()
+
+@wrong(set([2,3]))
+def sets1():
+    return set([1,2,3]) | {2,3,4}
+
+@wrong(set([1,2,3,4]))
+def sets2():
+    return {1,2,3} & {2,3,4}
+
+@wrong(set([-1, -1, -1]))
+def sets3():
+    return {1,2,3} - {2,3,4}
+
+@wrong(set([2, 4, 6]))
+@wrong(set([1, 2, 3, 4]))
+def sets4():
+    return {1,2,3} ^ {2,3,4}
+
+@yeahok
+def dicts1():
+    return dict({'a':1}, b=2, c=3)
+
+def dicts2():
+    pass
 
 if __name__ == '__main__':
     for q in Question.questions:
