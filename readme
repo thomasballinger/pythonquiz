@@ -67,12 +67,13 @@ semicolons to separate statements
 
 how does indentation work? (any amount as long as it's consistent within the block)
 
+line wrapping rules
+
 basic format and % formatting syntax
     print format(year,"3d"),format(principal,"0.2f")
     print "{0:3d} {1:0.2f}".format(year,principal)
 
 
-line wrapping rules
 
 f = open()
 file and stdin/stdout/stderr methods
@@ -84,7 +85,7 @@ slicing of strings
 reverse a string
 str vs repl
 
-draw some object graphs with lists
+draw some object graphs with lists #TODO come back to this, need image
 
 build a structure from a drawing
 

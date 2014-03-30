@@ -18,7 +18,6 @@ source = annotation('souces')
 reference = annotation('references')
 hint = annotation('hints')
 difficulty = annotation('difficulties')
-wrong = annotation('wrongs')
 tag = annotation('tags')
 affirm = annotation('affirms')
 wrong = annotation('wrongs')
@@ -47,7 +46,6 @@ class Question(object):
             q = cls(text)
         else:
             correct = repr(func())
-            print cls
             q = cls(text, correct)
         q.title = func.__name__
         for kind in annotations:
@@ -79,9 +77,9 @@ class Question(object):
         s += '\n'
         s += fmtfuncs.gray(self.question)
         s += '\n'
-        s += fmtfuncs.gray('\n').join(fmtfuncs.green(x) for x in self.corrects)
+        s += fmtfuncs.gray('\n').join(fmtfuncs.green(repr(x) if not isinstance(x, basestring) else x) for x in self.corrects)
         s += '\n'
-        s += fmtfuncs.gray('\n').join(fmtfuncs.red(x) for x in self.wrongs)
+        s += fmtfuncs.gray('\n').join(fmtfuncs.red(repr(x) if not isinstance(x, basestring) else x) for x in self.wrongs)
         s += '\n'
         return str(s)
     def solve(self, attempt):
@@ -121,6 +119,16 @@ def no(func):
     func.corrects = ['No']
     func.wrongs = ['Yes']
     func.ignoreresult = True
+    return MultipleChoice.convert_or_passthrough(func)
+
+def true(func):
+    assert func()
+    func.wrongs = [False]
+    return MultipleChoice.convert_or_passthrough(func)
+
+def false(func):
+    assert not func()
+    func.wrongs = [True]
     return MultipleChoice.convert_or_passthrough(func)
 
 question = Question.from_func
