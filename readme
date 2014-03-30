@@ -1,0 +1,191 @@
+
+Crib from useful sources:
+
+https://alexbers.com/python_quiz/
+
+
+reference:
+http://docs.python-guide.org/en/latest/ - contribute something to it!
+
+http://stackoverflow.com/questions/101268/hidden-features-of-python
+
+Raymond Hettinger Idiomatic Python https://www.youtube.com/watch?v=OSGv2VnC0go
+
+
+A quiz companion to 
+The Python Essential Reference 4th edition
+will need to check that this is ok with ddabeaz if I crib anything more
+
+other:
+
+how to make multiple expression lambdas?
+
+how to run Python code directly from the command line?
+
+how to exit a program despite having non-daemon threads running? (os._exit())
+
+draw out an object graph (OPT-style) of something complicated
+
+what python statements have else clauses
+
+other useful builtin iterators from Ned's talk: os.path
+
+
+
+I think you should know a lot of this stuff within a month of learning Python,
+but maybe longer if Python is your first programming language
+
+
+Following the outline of Python Essential reference:
+====================================================
+
+Everytihng in the next section:  you should know it!
+
+cursory introduction
+
+Tutorial Introduction
+---------------------
+
+If you're going to use Python for just one project
+
+
+what does _ do at the interactive prompt?
+
+How to make programs executable?
+
+// vs /
+
+How to exit the program? (quit, exit, raise SystemExit, sys.exit())
+
+print several things: (print a, b, c)
+
+reassigning variables
+
+semicolons to separate statements
+
+how does indentation work? (any amount as long as it's consistent within the block)
+
+basic format and % formatting syntax
+    print format(year,"3d"),format(principal,"0.2f")
+    print "{0:3d} {1:0.2f}".format(year,principal)
+
+
+line wrapping rules
+
+f = open()
+file and stdin/stdout/stderr methods
+raw_input vs input
+
+tripple quoted strings
+
+slicing of strings
+reverse a string
+str vs repl
+
+draw some object graphs with lists
+
+build a structure from a drawing
+
+(basic) list comprehension
+
+
+tuples without parens
+
+zero and one element tuple syntax
+
+
+Tuples and lists: Which takes less memory? How much less? which graph describes?
+
+
+''.split()
+
+# File containing lines of the form "name,shares,price"
+filename = "portfolio.csv"
+portfolio = []
+for line in open(filename):
+    fields = line.split(",") # Split each line into a list
+    name = fields[0] # Extract and convert individual fields
+    shares = int(fields[1])
+    price = float(fields[2])
+    stock = (name,shares,price) # Create a tuple (name, shares, price)
+    portfolio.append(stock)
+
+
+a = t | s # Union of t and s
+b = t & s # Intersection of t and s
+c = t – s # Set difference (items in t, but not in s)
+d = t ^ s # Symmetric difference (items in t or s, but not both)
+
+
+Dictionaries - in, .get, list(dict), 
+
+
+iteration
+
+third argument to range
+
+
+iterate over files, dicts, sets, lists, strings, jk
+
+tuple unpacking
+
+invoke arguments using names of args
+
+modify global variables in functions
+
+
+
+generators - the yield keyword
+they have "next"
+this works in for loops
+
+how would you write `tail`?
+
+How would you write grep?
+
+tail grep
+
+Coroutines - generators that take data
+syntax for this
+choose a use case example
+
+write one
+
+objects and classes
+
+list methods etc. with dir
+
+know what type with type
+
+know the + -> __add__ correspondence
+
+write a method
+
+staticmethods
+
+
+
+Exceptions
+
+with file
+
+with lock
+
+why are these useful for exceptions?
+
+
+all the different imports
+
+dir again
+
+help(obj)
+
+.__doc__
+
+pydoc command line tool
+
+
+
+
+
+
