@@ -1,0 +1,21 @@
+<html>
+    <style>
+
+    </style>
+
+<title>Python Quiz</title>
+<ul>
+{% for q in questions %}
+   <li><pre><code>{{ q.question }}</code></pre>
+        <ul>
+        {% for a in q.answers %}
+            <li>
+            <pre>{{ a }}</pre>
+            </li>
+        {% endfor %}
+        </ul>
+    </li>
+{% endfor %}
+</ul>
+
+</html>
