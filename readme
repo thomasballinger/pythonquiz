@@ -1,22 +1,41 @@
+Python Quiz
+-----------
 
-Crib from useful sources:
+TODO
 
-https://alexbers.com/python_quiz/
+* finish intro questions
+  * generators, coroutines
+  * objects, classes, methods
+  * exceptions, briefly context managers
+  * imports
+  * dir, help, __doc__, __file__, 
 
-examples from bpython/curtsies
+* command line interactive quiz
+
+* render each type of question differently
+  * add necessary attributes and methods for display to questions
+
+* server-size render logic
+
+* Do quizes for rest of Python Essential Reference book
+
+* make a "being careful" quiz, with questions from https://alexbers.com/python_quiz/
+
+* annotate quesitons with answers, make them better for learning
+
+* make a quiz based on questions people ask when reading code (like bpython)
 
 
-reference:
-http://docs.python-guide.org/en/latest/ - contribute something to it!
+references:
 
-http://stackoverflow.com/questions/101268/hidden-features-of-python
+* http://docs.python-guide.org/en/latest/ - contribute something to it!
+* http://stackoverflow.com/questions/101268/hidden-features-of-python
+* Raymond Hettinger Idiomatic Python https://www.youtube.com/watch?v=OSGv2VnC0go
 
-Raymond Hettinger Idiomatic Python https://www.youtube.com/watch?v=OSGv2VnC0go
 
-
-A quiz companion to 
+Could just make this the quiz companion to 
 The Python Essential Reference 4th edition
-will need to check that this is ok with ddabeaz if I crib anything more
+(but will need to check that this is ok with ddabeaz if I crib anything more)
 
 other:
 
@@ -50,59 +69,11 @@ Tutorial Introduction
 
 If you're going to use Python for just one project
 
-
-what does _ do at the interactive prompt?
-
-How to make programs executable?
-
-// vs /
-
-How to exit the program? (quit, exit, raise SystemExit, sys.exit())
-
-print several things: (print a, b, c)
-
-reassigning variables
-
-semicolons to separate statements
-
-how does indentation work? (any amount as long as it's consistent within the block)
-
-line wrapping rules
-
-basic format and % formatting syntax
-    print format(year,"3d"),format(principal,"0.2f")
-    print "{0:3d} {1:0.2f}".format(year,principal)
-
-
-
-f = open()
-file and stdin/stdout/stderr methods
-raw_input vs input
-
-tripple quoted strings
-
-slicing of strings
-reverse a string
-str vs repl
-
 draw some object graphs with lists #TODO come back to this, need image
 
 build a structure from a drawing
 
-(basic) list comprehension
-
-
-tuples without parens
-
-zero and one element tuple syntax
-
-
-Tuples and lists: Which takes less memory? How much less? which graph describes?
-
-
 ''.split()
-
-# TODO the tuple stuff below here is missing
 
 # File containing lines of the form "name,shares,price"
 filename = "portfolio.csv"
@@ -115,30 +86,11 @@ for line in open(filename):
     stock = (name,shares,price) # Create a tuple (name, shares, price)
     portfolio.append(stock)
 
-
-a = t | s # Union of t and s
-b = t & s # Intersection of t and s
-c = t – s # Set difference (items in t, but not in s)
-d = t ^ s # Symmetric difference (items in t or s, but not both)
-
-
-Dictionaries - in, .get, list(dict), 
-
-
-iteration
-
-third argument to range
-
-
-iterate over files, dicts, sets, lists, strings, jk
-
 tuple unpacking
 
 invoke arguments using names of args
 
 modify global variables in functions
-
-
 
 generators - the yield keyword
 they have "next"

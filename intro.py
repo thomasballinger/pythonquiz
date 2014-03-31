@@ -3,8 +3,7 @@ from questions import MultipleChoice, Checkbox, Question
 
 underscore = MultipleChoice('What does _ do at the interactive prompt?',
                    'Refers to the last non-None result printed',
-                   'Counter for how many times you\'ve  enter',
-                   'Something stupid'
+                   'Counter for how many times you\'ve hit enter',
                    )
 underscore.affirmation = ("_ refers to the last non-None result returned in the REPL, but isn't "
                  "special in executed programs. It's conventionally used to refer to "
@@ -18,7 +17,6 @@ executable = Checkbox("Which of these are required to Python program runnable fo
                       ["Add the file to the PYTHONPATH environmental variable",
                        "Put the script in a folder listed in the PYTHONPATH environmental variable",
                        "Add the file to the PATH environmental variable"])
-print question
 @question
 def division1():
     return 5 / 2
@@ -237,9 +235,67 @@ def sets4():
 def dicts1():
     return dict({'a':1}, b=2, c=3)
 
+@wrong([6, 7])
 def dicts2():
-    pass
+    d = {1:'a', 'b':2, (4, 5):[6, 7]}
+    d.get(4, 'something')
+
+@wrong(2)
+def dicts3():
+    for k in {1:2, 3:4}:
+        return k
+
+@wrong([2, 4])
+@wrong([(1, 2), (3, 4)])
+def dicts4():
+    return list({1:2, 3:4})
+
+@true
+def dicts():
+    return 1 in {1:2, 3:4}
+
+
+iteration1 = Checkbox("Which of the following can be used as interators in a for loop?",
+                      ["open('filename', 'r')",
+                       "os.walk('os.path(os.path.expanduser('~')))",
+                       "(1,2)",
+                       "1,2,3",
+                       "{1,2,3}",
+                       "xrange(10000000000)",
+                       "the quick brown fox",
+                       "(x*x for x in range(10) if x%3 == 1)"
+                       ],
+                      ["open('filename', 'w')",
+                       "None",
+                       "1 + 1 + 2 + 3"])
+
+@question
+def iteration2():
+    l = [0,1,2,3,4]
+    for i in iter(l.pop, 0):
+        l.insert(0, 0)
+    return l
+
+@false
+def iteration3():
+    return hasattr([1,2], 'next')
+
+@true
+def iteration4():
+    return hasattr(iter([1,2]), 'next')
+
+@false
+def iteration5():
+    return hasattr('abc', 'next')
+
+@true
+def iteration6():
+    return hasattr((x for x in 'abc'), 'next')
+
+def generators1():
+    "placeholder for more generator quesitons to come"
 
 if __name__ == '__main__':
     for q in Question.questions:
         print q
+        answer = raw_input()
