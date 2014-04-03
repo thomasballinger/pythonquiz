@@ -8,7 +8,7 @@ env = Environment(loader=FileSystemLoader('.'))
 template = env.get_template('quiz.html')
 
 
-s = template.render(questions=Question.questions)
+s = template.render(questions=Question.all_questions)
 
 f = open('test.html', 'w')
 

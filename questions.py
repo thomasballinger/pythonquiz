@@ -26,8 +26,11 @@ correct = annotation('corrects')
 
 class Question(object):
     title = ''
+    template = 'multiplechoice'
+    question_is_code = False
+    id_counter = 0
 
-    questions = []
+    all_questions = []
 
     def __init__(self, question, correct=None):
         self.question = question
@@ -48,6 +51,7 @@ class Question(object):
             correct = repr(func())
             q = cls(text, correct)
         q.title = func.__name__
+        q.question_is_code = True
         for kind in annotations:
             if not hasattr(q, kind):
                 setattr(q, kind, [])
@@ -69,7 +73,9 @@ class Question(object):
         else:
             return cls.from_func(thing)
     def register(self):
-        Question.questions.append(self)
+        Question.all_questions.append(self)
+        self.id = Question.id_counter
+        Question.id_counter += 1
 
     def __repr__(self):
         s = fmtfuncs.bold(type(self).__name__)
@@ -88,12 +94,27 @@ class Question(object):
     @property
     def answers(self):
         return self.corrects + self.wrongs
+    @property
+    def answer_objects(self):
+        return ([Answer(s, True, self.question_is_code) for s in self.corrects] +
+                [Answer(s, False, self.question_is_code) for x in self.wrongs])
+
+
+class Answer(object):
+    def __init__(self, text, correct, is_code = False):
+        self.text = text
+        self.correct = correct
+        self.is_code = is_code
+    @property
+    def correct_class(self):
+        return 'correct' if self.correct else 'incorrect'
 
 def deindent(lines):
     indent = min(len(line) - len(line.lstrip()) for line in lines)
     return [line[indent:] for line in lines]
 
 class WriteTheOutput(Question):
+    template = 'textbox'
     pass
 
 def multiplechoice(func):
@@ -138,6 +159,7 @@ def yeahok(func):
 question = Question.from_func
 
 class MultipleChoice(Question):
+    template = 'multiplechoice'
     def __init__(self, question, correct=None, *wrong):
         self.question = question
         if correct is None:
@@ -148,6 +170,7 @@ class MultipleChoice(Question):
         self.register()
 
 class Checkbox(Question):
+    template = 'checkbox'
     def __init__(self, question, corrects=(), wrongs=()):
         self.question = question
         self.corrects = list(corrects)

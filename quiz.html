@@ -1,20 +1,23 @@
 <html>
     <style>
-
     </style>
+    <script>
+        function forEachOfClass(classname, func) {
+            var things = document.getElementsByClassName(classname);
+            Array.prototype.forEach.call(question, func);
+        });
+
+        forEachOfClass("correct", function(x){
+            x.addEventListener(function(){
+            })
+        });
+
+    </script>
 
 <title>Python Quiz</title>
 <ul>
 {% for q in questions %}
-   <li><pre><code>{{ q.question }}</code></pre>
-        <ul>
-        {% for a in q.answers %}
-            <li>
-            <pre>{{ a }}</pre>
-            </li>
-        {% endfor %}
-        </ul>
-    </li>
+   <li class="question"> {% include q.template + '.html' %} </li>
 {% endfor %}
 </ul>
 
