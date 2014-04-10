@@ -1,13 +1,21 @@
+import inspect
+import random
+
 class Question(object):
     """Generic Question contructor
 
     Abstract base class - no instances of this class should be constructed"""
     classes = []
+    all_questions = []
     def __new__(cls, *args, **kwargs):
         if cls is Question:
             cls = [Q for Q in Question.classes
                    if kwargs.get('type', 'FillInTheBlank').lower() == Q.__name__.lower()][0]
-        return object.__new__(cls, *args, **kwargs)
+        q = object.__new__(cls, *args, **kwargs)
+        if not hasattr(q, 'file'):
+            q.file = _get_module()
+        Question.all_questions.append(q)
+        return q
 
     def __init__(self, question, answer=None, correct=None, wrong=None, type='FillInTheBlank', is_code=False):
         """
@@ -30,24 +38,26 @@ class Question(object):
                 return [arg]
             return arg
         self.is_code = is_code
+        self.question = question
         self.answers = ([Answer.to_answer(a) for a in list_if_single(answer)] +
                         [Answer.to_correct_answer(a) for a in list_if_single(correct)] +
                         [Answer.to_wrong_answer(a) for a in list_if_single(wrong)])
     def ask(self):
         """ask question in console"""
         print self.question
-        print '\n'.join("%d. %s" % (i, q.text) for i, q in zip(self.answers, xrange(1, 10000)))
+        random.shuffle(self.answers)
+        print '\n'.join("%d)  %s" % (i, q.text) for i, q in zip(xrange(1,1000), self.answers))
         r = raw_input()
-        if r.isdigit() and self.answers[int(r)-1].correct:
-            print 'dingdingding - correct!'
+        if r.isdigit() and int(r) <= len(self.answers) and self.answers[int(r)-1].correct:
+            print _green('dingdingding - correct!')
         else:
-            print 'bzzz! incorrect.'
+            print _red('bzzz! incorrect.')
 
     def quiz(self):
         print self.question
         print '\n'.join("%d. %s" % (i, q.text) for i, q in zip(self.answers, xrange(1, 10000)))
         r = raw_input()
-        if r.isdigit() and self.answers[int(r)-1].correct:
+        if r.isdigit() and int(r) <= len(self.answers) and self.answers[int(r)-1].correct:
             return True
         else:
             return False
@@ -104,6 +114,15 @@ class Answer(object):
     @property
     def wrong(self):
         return not self.correct
+
+def _get_module(a=1):
+    s = inspect.stack()
+    return s[1][1]
+
+def _green(s):
+    return '\x1b[32m%s\x1b[39m' % (s,)
+def _red(s):
+    return '\x1b[31m%s\x1b[39m' % (s,)
 
 if __name__ == '__main__':
     import doctest

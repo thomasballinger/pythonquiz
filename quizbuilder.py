@@ -16,4 +16,7 @@ def _deindent(lines):
 def question(func):
     return Question(_text_from_func(func), is_code=True, correct=Answer(func(), is_expression=True))
 
-
+def ask_all():
+    for q in Question.all_questions:
+        print 'from', q.file
+        q.ask()

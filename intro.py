@@ -1,4 +1,4 @@
-from quizbuilder import MultipleChoice, Checkbox, question
+from quizbuilder import MultipleChoice, Checkbox, question, ask_all
 
 underscore = MultipleChoice('What does _ do at the interactive prompt?',
                    'Refers to the last non-None result printed',
@@ -42,6 +42,7 @@ exit2 = Checkbox("Which of these will exit a Python program, even if other non-d
                        "raise SystemExit()",
                        "sys.exit()",
                        "raise BaseException()"])
+ask_all()
 import sys; sys.exit()
 
 @correct('1 hi [3, 4]')
