@@ -1,5 +1,7 @@
 import inspect as _inspect
 import types
+import StringIO
+import sys
 from question import Question, Answer
 from question import MultipleChoice, Checkbox, FillInTheBlank
 
@@ -29,6 +31,26 @@ def wrong(answer):
         func.answers.append(Answer(answer, correct=False))
         return func
     return dec
+
+def display_answer(func):
+    ans = Answer(_stdout_output(func), correct=True)
+    func = _fill_in_the_blank_passthrough(func)
+    func.answers.append(ans)
+    return func
+
+class _RedirectStdout(object):
+    def __enter__(self):
+        self.orig_stdout = sys.stdout
+        sys.stdout = StringIO.StringIO()
+        return sys.stdout
+    def __exit__(self, *args):
+        sys.stdout = self.orig_stdout
+
+def _stdout_output(func):
+    with _RedirectStdout() as f:
+        func()
+    f.seek(0)
+    return f.read()
 
 def _multiple_choice_passthrough(func):
     if isinstance(func, types.FunctionType):

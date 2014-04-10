@@ -1,4 +1,4 @@
-from quizbuilder import MultipleChoice, Checkbox, question, ask_all, yes, no, wrong
+from quizbuilder import MultipleChoice, Checkbox, question, ask_all, yes, no, wrong, display_answer
 
 underscore = MultipleChoice('What does _ do at the interactive prompt?',
                    'Refers to the last non-None result printed',
@@ -96,18 +96,17 @@ indentation4.question = '\n'.join(lines)
 def format1():
     return format(14,"3d") + ' ' + format(123.456,"0.2f")
 
-ask_all()
-import sys; sys.exit()
-
-@correct('1 hi [3, 4]')
 @wrong('syntax error')
 @wrong("1, 'hi', [3, 4]")
 @wrong("1, 'hi', <list instance at 0x10401ca70>")
 @wrong("1 'hi' [3, 4]")
-@ignoreresult
+@display_answer
 def printing():
     """What does this function display?"""
     print 1, 'hi', [3, 4]
+
+ask_all()
+import sys; sys.exit()
 
 def reassign_variables():
     """What's the value of a by the end of the function?"""
