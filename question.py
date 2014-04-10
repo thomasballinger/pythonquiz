@@ -46,20 +46,31 @@ class Question(object):
     def ask(self):
         """ask question in console"""
         print self.question
-        random.shuffle(self.answers)
+        if len(self.answers) == 2 and set(['yes', 'no']) == set(a.text for a in self.answers):
+            self.answers.sort(key=lambda x: x.text, reverse=True)
+        else:
+            random.shuffle(self.answers)
         print '\n'.join("%d)  %s" % (i, a.text) for i, a in zip(xrange(1,1000), self.answers))
         r = raw_input()
         if r.isdigit() and int(r) <= len(self.answers) and self.answers[int(r)-1].correct:
             print _green('dingdingding - correct!')
+        elif any(_normalize(r) == _normalize(a.text) for a in self.answers if a.correct):
+            print _green('dingdingding - correct!')
+        elif len(self.answers) == 2 and set(['yes', 'no']) == set(a.text for a in self.answers):
+            answer_is_yes = 'yes' == [a.text for a in self.answers if a.correct][0]
+            if (answer_is_yes and 'y' in r.lower()) or not answer_is_yes:
+                print _green('dingdingding - correct!')
+            else:
+                print _red('bzzz! incorrect.')
         else:
             print _red('bzzz! incorrect.')
 
 class MultipleChoice(Question):
-    def __init__(self, question, correct, *wrongs):
-        Question.__init__(self, question, correct=correct, wrong=wrongs, type='multiplechoice')
+    def __init__(self, question, correct, *wrongs, **kwargs):
+        Question.__init__(self, question, correct=correct, wrong=wrongs, type='multiplechoice', **kwargs)
 class Checkbox(Question):
-    def __init__(self, question, corrects, wrongs):
-        Question.__init__(self, question, correct=corrects, wrong=wrongs, type='checkbox')
+    def __init__(self, question, corrects, wrongs, **kwargs):
+        Question.__init__(self, question, correct=corrects, wrong=wrongs, type='checkbox', **kwargs)
     def ask(self):
         """ask question in console"""
         print self.question
@@ -72,14 +83,15 @@ class Checkbox(Question):
             else:
                 print _red('bzzz! incorrect.')
 
+def _normalize(s):
+    return ''.join(re.sub(r'"', '"', s).split()).lower()
+
 class FillInTheBlank(Question):
     def ask(self):
         """ask question in console"""
         print self.question
         r = raw_input('> ')
-        def normalize(s):
-            return ''.join(re.sub(r'"', '"', s).split()).lower()
-        if any(normalize(r) == normalize(a.text) for a in self.answers if a.correct):
+        if any(_normalize(r) == _normalize(a.text) for a in self.answers if a.correct):
             print _green('dingdingding - correct!')
         else:
             print _red('bzzz! incorrect.')

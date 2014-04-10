@@ -1,4 +1,4 @@
-from quizbuilder import MultipleChoice, Checkbox, question, ask_all
+from quizbuilder import MultipleChoice, Checkbox, question, ask_all, yes, no, wrong
 
 underscore = MultipleChoice('What does _ do at the interactive prompt?',
                    'Refers to the last non-None result printed',
@@ -42,8 +42,6 @@ exit2 = Checkbox("Which of these will exit a Python program, even if other non-d
                        "raise SystemExit()",
                        "sys.exit()",
                        "raise BaseException()"])
-ask_all()
-import sys; sys.exit()
 
 multiple_statements = Checkbox("How do you put multiple statements on one line in Python?",
                       ["a = 1; foo(2); return 1"],
@@ -97,6 +95,9 @@ indentation4.question = '\n'.join(lines)
 @wrong("'14 0123.456'")
 def format1():
     return format(14,"3d") + ' ' + format(123.456,"0.2f")
+
+ask_all()
+import sys; sys.exit()
 
 @correct('1 hi [3, 4]')
 @wrong('syntax error')
