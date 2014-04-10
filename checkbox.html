@@ -1,0 +1,12 @@
+{{ '<pre><code>' if q.question_is_code }} {{ q.question }} {{ '</pre></code>' if q.question_is_code }}
+    <ul class="checkbox-question">
+    {% for a in q.answer_objects %}
+        <li>
+        Yes
+        <input type="radio" name="{{ 'answers' ~ q.id ~ '-' ~ loop.index }}" value="true" class="{{ "correct" if a.correct else "incorrect" }}">
+        <input type="radio" name="{{ 'answers' ~ q.id ~ '-' ~ loop.index }}" value="false" class="{{ "incorrect" if a.correct else "correct" }}">
+        No
+        {{ '<pre><code>' if a.is_code }}{{ a.text }}{{ '</pre></code>' if q.question_is_code }}
+        </li>
+    {% endfor %}
+    </ul>

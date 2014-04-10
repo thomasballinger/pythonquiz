@@ -1,0 +1,9 @@
+{{ '<pre><code>' if q.question_is_code }} {{ q.question }} {{ '</pre></code>' if q.question_is_code }}
+    <ul class="mutiple-choice-question">
+    {% for a in q.answers %}
+        <li>
+        <input type="radio" name="{{ 'answers' ~ q.id }}" value="{{ loop.index }}">
+        {{ '<pre><code>' if q.question_is_code }}{{ a }}{{ '</pre></code>' if q.question_is_code }}
+        </li>
+    {% endfor %}
+    </ul>
