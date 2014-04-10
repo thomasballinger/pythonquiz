@@ -340,11 +340,19 @@ def coroutines1():
     c = counter(1)
     return [c.next(), c.send(5), c.next(), c.next()]
 
+f = lambda: None
+class Foo(object):
+    def __repr__(self):
+        return "<type 'char'>"
 @wrong(repr((type(1), type('a'), type(None), type(()))))
-@wrong(repr((type(1), type('a'), type(coroutines1), type(()))))
+@wrong(repr((type(1), Foo(), type(f), type(()))))
 @wrong(repr((type(1), type('a'), type(None), type([]))))
 def type1():
     return type(1), type('a'), type(lambda: None), type([])
+
+def classes1():
+    class Foo(object):
+        """Very basic classse, whatever the intro covers"""
 
 if __name__ == '__main__':
     ask_all()
