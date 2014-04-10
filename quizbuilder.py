@@ -25,6 +25,15 @@ def yes(func):
 def no(func):
     return MultipleChoice(_text_from_func(func), Answer('no'), Answer('yes'), is_code=True)
 
+def true(func):
+    return MultipleChoice(_text_from_func(func), Answer('True'), Answer('False'), is_code=True)
+
+def false(func):
+    return MultipleChoice(_text_from_func(func), Answer('False'), Answer('True'), is_code=True)
+
+def yeahok(func):
+    return MultipleChoice(_text_from_func(func), Answer('Yeah Ok'), is_code=True)
+
 def wrong(answer):
     def dec(func):
         func = _multiple_choice_passthrough(func)

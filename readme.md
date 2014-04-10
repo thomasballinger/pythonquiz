@@ -53,6 +53,7 @@ TODO
   * checkbox
   * file in the blank
 
+* special case multiple choice where choices are true and false (like yes/no, no shuffle, t/f one letter)
 
 * Autodiscovery - what module was the top level decorator or constructor called from?
 

@@ -1,4 +1,4 @@
-from quizbuilder import MultipleChoice, Checkbox, question, ask_all, yes, no, wrong, display_answer
+from quizbuilder import MultipleChoice, Checkbox, question, ask_all, yes, no, wrong, display_answer, true, false, yeahok
 
 underscore = MultipleChoice('What does _ do at the interactive prompt?',
                    'Refers to the last non-None result printed',
@@ -105,9 +105,6 @@ def printing():
     """What does this function display?"""
     print 1, 'hi', [3, 4]
 
-ask_all()
-import sys; sys.exit()
-
 def reassign_variables():
     """What's the value of a by the end of the function?"""
     a = 10
@@ -179,7 +176,7 @@ comprehensions = Checkbox("Which are valid comprehensions in Python?",
                        "[ord(c) for c in word for word in ['abc', 'def', 'ghi']]",
                        "(x for x in range(10), range(10)"])
 
-tuples = Checkbox("Which are valid tupes in Python?",
+tuples = Checkbox("Which are valid tuples in Python?",
                       ["()",
                        "1,",
                        "(1,2)",
@@ -297,6 +294,4 @@ def generators1():
     "placeholder for more generator quesitons to come"
 
 if __name__ == '__main__':
-    for q in Question.questions:
-        print q
-        answer = raw_input()
+    ask_all()
