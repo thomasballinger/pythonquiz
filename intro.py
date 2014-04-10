@@ -290,8 +290,61 @@ def iteration5():
 def iteration6():
     return hasattr((x for x in 'abc'), 'next')
 
+@wrong(repr('blast off'))
+@wrong(repr(1))
+@wrong(repr(3))
+@wrong(repr(4))
 def generators1():
     "placeholder for more generator quesitons to come"
+    def countdown(n):
+        while n > 0:
+            yield n
+            n -= 1
+        yield 'blast off'
+    c = countdown(4)
+    c.next()
+    c.next()
+    return c.next()
+
+@wrong(repr(11 + 22 + 33))
+@wrong(repr(11 + 33))
+@wrong(repr(11 + 22 + 33 + 44 + 55))
+def generators2():
+    def odd(iterable):
+        for x in iterable:
+            if x % 2 == 1:
+                yield x
+    def elevens():
+        for i in xrange(1000):
+            yield i * 11
+    return sum(x for i, x in zip(odd(elevens()), range(3)))
+
+@true
+def generators3():
+    return range(20).__sizeof__() > xrange(1000).__sizeof__()
+
+@wrong(repr([1, 2, 3, 4]))
+@wrong(repr([1, 2, 5, 6]))
+@wrong(repr([1, 2, 6, 7]))
+@wrong(repr([1, 5, 2, 3]))
+@wrong(repr([1, 6, 7, 8]))
+@wrong(repr([1, 2, 6, 7]))
+def coroutines1():
+    def counter(n):
+        while True:
+            passed_in = yield n
+            if passed_in is None:
+                n += 1
+            else:
+                n = passed_in
+    c = counter(1)
+    return [c.next(), c.send(5), c.next(), c.next()]
+
+@wrong(repr((type(1), type('a'), type(None), type(()))))
+@wrong(repr((type(1), type('a'), type(coroutines1), type(()))))
+@wrong(repr((type(1), type('a'), type(None), type([]))))
+def type1():
+    return type(1), type('a'), type(lambda: None), type([])
 
 if __name__ == '__main__':
     ask_all()

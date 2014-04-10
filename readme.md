@@ -67,6 +67,14 @@ TODO
 
 * JavaScript for full quizzes
 
+* elimination of duplicate answers
+* if all answers are numbers, don't use numbers in the terminal (maybe letters instead?)
+
+* assert that true / false decorators are applied correctly, or make them both @bool
+  (what's the point of these anyway? To make otherwise fill-in-the-blank questions multiple choice)
+
+* ensure mixing and matching works properly, and well-document which decorators can be used when
+
 
 Content Todo
 ------------
