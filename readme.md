@@ -46,6 +46,30 @@ When you create a question, it's added to the Questions.questions class attribut
 
 TODO
 
+* Question class usable for multiple choice
+
+* command line interactive quiz for each question type
+  * multiple choice
+  * checkbox
+  * file in the blank
+
+
+* Autodiscovery - what module was the top level decorator or constructor called from?
+
+* exciting decorator interface
+
+* create interactive vs all-together modes (ask() vs <name?>())
+
+* HTML rendering of questions!
+
+* JavaScript for interactive learning
+
+* JavaScript for full quizzes
+
+
+Content Todo
+------------
+
 * finish intro questions
   * generators, coroutines
   * objects, classes, methods
@@ -53,22 +77,14 @@ TODO
   * imports
   * dir, help, __doc__, __file__, 
 
-* command line interactive quiz
-
-* render each type of question differently
-  * add necessary attributes and methods for display to questions
-
-* server-size render logic
-
-* Do quizes for rest of Python Essential Reference book
+* Do quizzes for rest of Python Essential Reference book
 
 * make a "being careful" quiz, with questions from https://alexbers.com/python_quiz/
 
-* annotate quesitons with answers, make them better for learning
+* annotate questions with answers, make them better for learning
 
 * make a quiz based on questions people ask when reading code (like bpython)
 
-* create interactive vs all-together modes
 
 
 references:

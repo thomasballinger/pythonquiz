@@ -1,7 +1,7 @@
 class Question(object):
     """Generic Question contructor
 
-    Abstract base class - no instances should exist"""
+    Abstract base class - no instances of this class should be constructed"""
     classes = []
     def __new__(cls, *args, **kwargs):
         if cls is Question:
@@ -17,6 +17,7 @@ class Question(object):
         >>> [a.text for a in q.answers]
         ['because', 'dunno', 'hmm...']
         """
+        # type actually happens during __new__, so assert
         assert type.lower() == self.__class__.__name__.lower()
         def list_if_single(arg):
             if arg is None:
@@ -41,6 +42,15 @@ class Question(object):
             print 'dingdingding - correct!'
         else:
             print 'bzzz! incorrect.'
+
+    def quiz(self):
+        print self.question
+        print '\n'.join("%d. %s" % (i, q.text) for i, q in zip(self.answers, xrange(1, 10000)))
+        r = raw_input()
+        if r.isdigit() and self.answers[int(r)-1].correct:
+            return True
+        else:
+            return False
 
 class MultipleChoice(Question): pass
 class Checkbox(Question): pass
@@ -89,11 +99,6 @@ class Answer(object):
     @property
     def wrong(self):
         return not self.correct
-
-
-
-
-
 
 if __name__ == '__main__':
     import doctest
