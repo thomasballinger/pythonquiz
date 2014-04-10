@@ -1,6 +1,6 @@
 from jinja2 import Environment, FileSystemLoader
 
-from questions import Question
+from question import Question
 import intro
 
 env = Environment(loader=FileSystemLoader('.'))

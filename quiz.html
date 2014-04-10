@@ -21,7 +21,7 @@
 <title>Python Quiz</title>
 <ul>
 {% for q in questions %}
-   <li class="question"> {% include q.template + '.html' %} </li>
+   <li class="question"> {% include q.__class__.__name__ + '.html' %} </li>
 {% endfor %}
 </ul>
 

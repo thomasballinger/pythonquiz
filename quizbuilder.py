@@ -6,9 +6,7 @@ from question import Question, Answer
 from question import MultipleChoice, Checkbox, FillInTheBlank
 
 def _text_from_func(func):
-    print _inspect.getsourcelines(func)[0]
     lines = _deindent(_inspect.getsourcelines(func)[0])
-    print lines
     while lines[0].startswith('@'):
         lines.pop(0)
     text = ''.join(lines)
