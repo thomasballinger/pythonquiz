@@ -45,22 +45,6 @@ exit2 = Checkbox("Which of these will exit a Python program, even if other non-d
 ask_all()
 import sys; sys.exit()
 
-@correct('1 hi [3, 4]')
-@wrong('syntax error')
-@wrong("1, 'hi', [3, 4]")
-@wrong("1, 'hi', <list instance at 0x10401ca70>")
-@wrong("1 'hi' [3, 4]")
-@ignoreresult
-def printing():
-    """What does this function display?"""
-    print 1, 'hi', [3, 4]
-
-def reassign_variables():
-    """What's the value of a by the end of the function?"""
-    a = 10
-    a = "asdf"
-    type(a)
-
 multiple_statements = Checkbox("How do you put multiple statements on one line in Python?",
                       ["a = 1; foo(2); return 1"],
                       ["(a = 1, foo(2), return 1)",
@@ -113,6 +97,23 @@ indentation4.question = '\n'.join(lines)
 @wrong("'14 0123.456'")
 def format1():
     return format(14,"3d") + ' ' + format(123.456,"0.2f")
+
+@correct('1 hi [3, 4]')
+@wrong('syntax error')
+@wrong("1, 'hi', [3, 4]")
+@wrong("1, 'hi', <list instance at 0x10401ca70>")
+@wrong("1 'hi' [3, 4]")
+@ignoreresult
+def printing():
+    """What does this function display?"""
+    print 1, 'hi', [3, 4]
+
+def reassign_variables():
+    """What's the value of a by the end of the function?"""
+    a = 10
+    a = "asdf"
+    type(a)
+
 
 @wrong("'014 123.45'")
 @wrong("' 14 0.456'")

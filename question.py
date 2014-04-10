@@ -46,21 +46,12 @@ class Question(object):
         """ask question in console"""
         print self.question
         random.shuffle(self.answers)
-        print '\n'.join("%d)  %s" % (i, q.text) for i, q in zip(xrange(1,1000), self.answers))
+        print '\n'.join("%d)  %s" % (i, a.text) for i, a in zip(xrange(1,1000), self.answers))
         r = raw_input()
         if r.isdigit() and int(r) <= len(self.answers) and self.answers[int(r)-1].correct:
             print _green('dingdingding - correct!')
         else:
             print _red('bzzz! incorrect.')
-
-    def quiz(self):
-        print self.question
-        print '\n'.join("%d. %s" % (i, q.text) for i, q in zip(self.answers, xrange(1, 10000)))
-        r = raw_input()
-        if r.isdigit() and int(r) <= len(self.answers) and self.answers[int(r)-1].correct:
-            return True
-        else:
-            return False
 
 class MultipleChoice(Question):
     def __init__(self, question, correct, *wrongs):
@@ -68,6 +59,18 @@ class MultipleChoice(Question):
 class Checkbox(Question):
     def __init__(self, question, corrects, wrongs):
         Question.__init__(self, question, correct=corrects, wrong=wrongs, type='checkbox')
+    def ask(self):
+        """ask question in console"""
+        print self.question
+        random.shuffle(self.answers)
+        for a in self.answers:
+            print a.text
+            r = raw_input('y/n ')
+            if ('y' in r.lower() and a.correct):
+                print _green('dingdingding - correct!')
+            else:
+                print _red('bzzz! incorrect.')
+
 class FillInTheBlank(Question): pass
 Question.classes.extend([MultipleChoice, Checkbox, FillInTheBlank])
 
