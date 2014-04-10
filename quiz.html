@@ -4,11 +4,15 @@
     <script>
         function forEachOfClass(classname, func) {
             var things = document.getElementsByClassName(classname);
-            Array.prototype.forEach.call(question, func);
-        });
+            Array.prototype.forEach.call(things, func);
+        };
 
         forEachOfClass("correct", function(x){
-            x.addEventListener(function(){
+            console.log('found one')
+            x.addEventListener('click', function(){
+                console.log("asdf");
+                a = this;
+                this.style.background = '';
             })
         });
 

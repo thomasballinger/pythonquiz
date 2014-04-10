@@ -1,3 +1,8 @@
+questions.py
+-----------
+
+DSL for writing Python quizes in Python
+
 Python Quiz
 -----------
 
