@@ -1,5 +1,6 @@
 import inspect
 import random
+import re
 
 class Question(object):
     """Generic Question contructor
@@ -66,12 +67,22 @@ class Checkbox(Question):
         for a in self.answers:
             print a.text
             r = raw_input('y/n ')
-            if ('y' in r.lower() and a.correct):
+            if (('y' in r.lower() and a.correct) or not a.correct):
                 print _green('dingdingding - correct!')
             else:
                 print _red('bzzz! incorrect.')
 
-class FillInTheBlank(Question): pass
+class FillInTheBlank(Question):
+    def ask(self):
+        """ask question in console"""
+        print self.question
+        r = raw_input('> ')
+        def normalize(s):
+            return ''.join(re.sub(r'"', '"', s).split()).lower()
+        if any(normalize(r) == normalize(a.text) for a in self.answers if a.correct):
+            print _green('dingdingding - correct!')
+        else:
+            print _red('bzzz! incorrect.')
 Question.classes.extend([MultipleChoice, Checkbox, FillInTheBlank])
 
 class Answer(object):

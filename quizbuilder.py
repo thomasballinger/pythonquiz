@@ -1,6 +1,6 @@
 import inspect as _inspect
 from question import Question, Answer
-from question import MultipleChoice, Checkbox
+from question import MultipleChoice, Checkbox, FillInTheBlank
 
 def _text_from_func(func):
     lines = _deindent(_inspect.getsourcelines(func)[0])
@@ -14,7 +14,7 @@ def _deindent(lines):
     return [line[indent:] for line in lines]
 
 def question(func):
-    return Question(_text_from_func(func), is_code=True, correct=Answer(func(), is_expression=True))
+    return FillInTheBlank(_text_from_func(func), is_code=True, correct=Answer(repr(func()), is_expression=True))
 
 def ask_all():
     for q in Question.all_questions:
