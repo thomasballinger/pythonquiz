@@ -6,6 +6,44 @@ DSL for writing Python quizes in Python
 Python Quiz
 -----------
 
+    >>> chicken = Question("Why did the chicken cross the road?",
+    ...     correct="to get to the other side",
+    ...     wrong=["it just did it", "for fun", "no reason really"])
+    >>> chicken.ask()
+    Why did the chicken cross the road?
+    # user types "for fun"
+    incorrect
+    >>> 
+
+Construct Question objects, create interactive quizes in the terminal or browser!
+
+I'm not planning for much collection of data, stats, etc. Just another way to learn material.
+
+There are three kinds of questions:
+
+ * multiple choice
+ * checkboxes
+ * fill in the blank
+
+Questions have correct and incorrect answers associated with them.
+
+Questions can be annotated with information like sources, references,
+hints, and difficulty rating. Questions and answers contain formatting
+information in metadata, like whether the answer is code.
+
+Answers can be annotated with information like explanations.
+
+Questions can be constructed directly with Question classes, or 
+with decorators on a function whose source is the question.
+Questions from functions can be run automatically to find their
+correct answer, by recording what the function returns and prints
+to stdout.
+
+Autodiscovery
+-------------
+
+When you create a question, it's added to the Questions.questions class attribute dictionary under the module in which the question was created.
+
 TODO
 
 * finish intro questions
@@ -29,6 +67,8 @@ TODO
 * annotate quesitons with answers, make them better for learning
 
 * make a quiz based on questions people ask when reading code (like bpython)
+
+* create interactive vs all-together modes
 
 
 references:
