@@ -1,14 +1,11 @@
-from questions import source, reference, hint, difficulty, wrong, tag, affirm, question, ignoreresult, correct, wrong, yes, no, true, false, yeahok
-from questions import MultipleChoice, Checkbox, Question
+from quizbuilder import MultipleChoice, Checkbox, question
 
 underscore = MultipleChoice('What does _ do at the interactive prompt?',
                    'Refers to the last non-None result printed',
-                   'Counter for how many times you\'ve hit enter',
-                   )
-underscore.affirmation = ("_ refers to the last non-None result returned in the REPL, but isn't "
+                   'Counter for how many times you\'ve hit enter')
+underscore.explanation = ("_ refers to the last non-None result returned in the REPL, but isn't "
                  "special in executed programs. It's conventionally used to refer to "
                  "variables that aren't going to be used again.")
-
 
 executable = Checkbox("Which of these are required to Python program runnable form the command line?",
                       ["Add `#!/usr/bin/env python' to the top of the script",
@@ -45,6 +42,8 @@ exit2 = Checkbox("Which of these will exit a Python program, even if other non-d
                        "raise SystemExit()",
                        "sys.exit()",
                        "raise BaseException()"])
+import sys; sys.exit()
+
 @correct('1 hi [3, 4]')
 @wrong('syntax error')
 @wrong("1, 'hi', [3, 4]")

@@ -18,7 +18,7 @@ class Question(object):
         ['because', 'dunno', 'hmm...']
         """
         # type actually happens during __new__, so assert
-        assert type.lower() == self.__class__.__name__.lower()
+        assert type.lower() == self.__class__.__name__.lower(), str(type.lower()) + ' vs ' + str(self.__class__.__name__.lower())
         def list_if_single(arg):
             if arg is None:
                 return []
@@ -52,8 +52,12 @@ class Question(object):
         else:
             return False
 
-class MultipleChoice(Question): pass
-class Checkbox(Question): pass
+class MultipleChoice(Question):
+    def __init__(self, question, correct, *wrongs):
+        Question.__init__(self, question, correct=correct, wrong=wrongs, type='multiplechoice')
+class Checkbox(Question):
+    def __init__(self, question, corrects, wrongs):
+        Question.__init__(self, question, correct=corrects, wrong=wrongs, type='checkbox')
 class FillInTheBlank(Question): pass
 Question.classes.extend([MultipleChoice, Checkbox, FillInTheBlank])
 
@@ -92,10 +96,11 @@ class Answer(object):
             return answer
         else:
             return Answer(answer, correct=True)
-    def __init__(self, text, correct=True, is_code=False):
+    def __init__(self, text, correct=True, is_code=False, is_expression=False):
         self.text = text
         self.correct = correct
         self.is_code = is_code
+        self.is_expression = is_expression
     @property
     def wrong(self):
         return not self.correct
