@@ -105,12 +105,12 @@ def printing():
     """What does this function display?"""
     print 1, 'hi', [3, 4]
 
+@wrong(repr(int))
 def reassign_variables():
     """What's the value of a by the end of the function?"""
     a = 10
     a = "asdf"
-    type(a)
-
+    return type(a)
 
 @wrong("'014 123.45'")
 @wrong("' 14 0.456'")
