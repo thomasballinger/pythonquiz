@@ -17,24 +17,31 @@ def _deindent(lines):
     return [line[indent:] for line in lines]
 
 def question(func):
+    """Make the function below a question, with what it returns as the answer"""
     return FillInTheBlank(_text_from_func(func), is_code=True, correct=Answer(repr(func()), is_expression=True))
 
 def yes(func):
+    """The function below is a yes/no question, and the answer is yes"""
     return MultipleChoice(_text_from_func(func), Answer('yes'), Answer('no'), is_code=True)
 
 def no(func):
+    """The function below is a yes/no question, and the answer is no"""
     return MultipleChoice(_text_from_func(func), Answer('no'), Answer('yes'), is_code=True)
 
 def true(func):
+    """The function below is a True/False question, and the answer is True"""
     return MultipleChoice(_text_from_func(func), Answer('True'), Answer('False'), is_code=True)
 
 def false(func):
+    """The function below is a True/False question, and the answer is False"""
     return MultipleChoice(_text_from_func(func), Answer('False'), Answer('True'), is_code=True)
 
 def yeahok(func):
-    return MultipleChoice(_text_from_func(func), Answer('Yeah Ok'), is_code=True)
+    """Multiple choice question with just one answer: the right one"""
+    return MultipleChoice(_text_from_func(func), Answer(repr(func())), is_code=True)
 
 def wrong(answer):
+    """Supplies a wrong answer for a multiple choice question"""
     def dec(func):
         func = _multiple_choice_passthrough(func)
         func.answers.append(Answer(answer, correct=False))
@@ -42,6 +49,7 @@ def wrong(answer):
     return dec
 
 def display_answer(func):
+    """Uses what is printed to stdout when the function is run as the correct answer"""
     ans = Answer(_stdout_output(func), correct=True)
     func = _fill_in_the_blank_passthrough(func)
     func.answers.append(ans)
@@ -77,6 +85,7 @@ def _checkbox_passthrough(func):
     return func
 
 def ask_all():
+    """Ask all questions in the console"""
     for q in reversed(Question.all_questions):
         print 'from', q.file
         q.ask()
