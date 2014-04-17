@@ -1,7 +1,7 @@
-from quizbuilder import MultipleChoice, Checkbox, question, ask_all, yes, no, wrong, display_answer, true, false, yeahok
+from pyquiz import MultipleChoice, Checkbox, question, ask_all, yes, no, wrong, display_answer, true, false, yeahok
 
 underscore = MultipleChoice('What does _ do at the interactive prompt?',
-                   'Refers to the last non-None result printed',
+                   'Refers to the last non-None expression result',
                    'Counter for how many times you\'ve hit enter')
 underscore.explanation = ("_ refers to the last non-None result returned in the REPL, but isn't "
                  "special in executed programs. It's conventionally used to refer to "
@@ -33,7 +33,8 @@ exit1 = Checkbox("Which of these will exit a Python program",
                        "sys.exit()",
                        "os._exit(0)",
                        ],
-                      ["raise BaseException()"])
+                      ["raise BaseException()"],
+                      answers_are_code=True)
 
 exit2 = Checkbox("Which of these will exit a Python program, even if other non-daemon threads are running, and will skip running `finally` clauses?",
                       ["os._exit(0)"],
@@ -41,13 +42,15 @@ exit2 = Checkbox("Which of these will exit a Python program, even if other non-d
                        "exit()",
                        "raise SystemExit()",
                        "sys.exit()",
-                       "raise BaseException()"])
+                       "raise BaseException()"],
+                      answers_are_code=True)
 
 multiple_statements = Checkbox("Which of these is a valid way to put multiple statements on one line?",
                       ["a = 1; foo(2); return 1"],
                       ["(a = 1, foo(2), return 1)",
                        "a, _, _ = 1, foo(2), return 1",
-                       "[locals().__setitem__('a', 1), foo(2), __return__(1)]"])
+                       "[locals().__setitem__('a', 1), foo(2), __return__(1)]"],
+                      answers_are_code=True)
 
 @yes
 def indentation1():
