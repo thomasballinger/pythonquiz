@@ -43,7 +43,7 @@ exit2 = Checkbox("Which of these will exit a Python program, even if other non-d
                        "sys.exit()",
                        "raise BaseException()"])
 
-multiple_statements = Checkbox("How do you put multiple statements on one line in Python?",
+multiple_statements = Checkbox("Which of these is a valid way to put multiple statements on one line?",
                       ["a = 1; foo(2); return 1"],
                       ["(a = 1, foo(2), return 1)",
                        "a, _, _ = 1, foo(2), return 1",
@@ -96,7 +96,7 @@ indentation4.question = '\n'.join(lines)
 def format1():
     return format(14,"3d") + ' ' + format(123.456,"0.2f")
 
-@wrong('syntax error')
+@wrong('syntax error', is_code=False)
 @wrong("1, 'hi', [3, 4]")
 @wrong("1, 'hi', <list instance at 0x10401ca70>")
 @wrong("1 'hi' [3, 4]")
@@ -105,7 +105,7 @@ def printing():
     """What does this function display?"""
     print 1, 'hi', [3, 4]
 
-@wrong(repr(int))
+@wrong(int)
 def reassign_variables():
     """What's the value of a by the end of the function?"""
     a = 10
@@ -128,7 +128,7 @@ file1 = Checkbox("Which of these are methods of file objects",
                        ],
                       [".count()",
                        ".format()"
-                       ".encode()"])
+                       ".encode()"], answers_are_code=True)
 
 file2 = Checkbox("Which of these objects share many methods with file objects?",
                       ["socket.socket()",
@@ -137,7 +137,7 @@ file2 = Checkbox("Which of these objects share many methods with file objects?",
                        "sys.stdout",
                        "StringIO.StringIO",
                        ],
-                      ["1"])
+                      ["1"], answers_are_code=True)
 
 file2 = Checkbox("Which of these expressions evaluates to a reversed string? (where the initial string is s)",
                       ["s[::-1]",
@@ -149,7 +149,7 @@ file2 = Checkbox("Which of these expressions evaluates to a reversed string? (wh
                        "s[-1]",
                        "s[0:len(s):-1]",
                        "s[-1:0:-1]",
-                       "s[len(s):0:-1]"])
+                       "s[len(s):0:-1]"], answers_are_code=True)
 @wrong('<int 1>')
 @wrong('\'\"1\"\'')
 def repr1():
@@ -174,7 +174,8 @@ comprehensions = Checkbox("Which are valid comprehensions in Python?",
                       ["[1 if x for x in [True, False, True]]",
                        "(x:y for x, y in [[1,2], [3, 4], [5, 6]])",
                        "[ord(c) for c in word for word in ['abc', 'def', 'ghi']]",
-                       "(x for x in range(10), range(10)"])
+                       "(x for x in range(10), range(10)"],
+                      answers_are_code=True)
 
 tuples = Checkbox("Which are valid tuples in Python?",
                       ["()",
@@ -188,7 +189,8 @@ tuples = Checkbox("Which are valid tuples in Python?",
                        "tuple(1,2)",
                        "tuple(1)",
                        "(1)",
-                       "1 + 1"])
+                       "1 + 1"],
+                      answers_are_code=True)
 
 @true
 def memory1():
@@ -239,6 +241,8 @@ def dicts2():
     d.get(4, 'something')
 
 @wrong(2)
+@wrong(3)
+@wrong(4)
 def dicts3():
     for k in {1:2, 3:4}:
         return k
@@ -253,19 +257,20 @@ def dicts():
     return 1 in {1:2, 3:4}
 
 
-iteration1 = Checkbox("Which of the following can be used as interators in a for loop?",
+iteration1 = Checkbox("Which of the following can be used as iterators in a for loop?",
                       ["open('filename', 'r')",
                        "os.walk('os.path(os.path.expanduser('~')))",
                        "(1,2)",
                        "1,2,3",
                        "{1,2,3}",
                        "xrange(10000000000)",
-                       "the quick brown fox",
+                       repr("the quick brown fox"),
                        "(x*x for x in range(10) if x%3 == 1)"
                        ],
                       ["open('filename', 'w')",
                        "None",
-                       "1 + 1 + 2 + 3"])
+                       "1 + 1 + 2 + 3"],
+                      answers_are_code=True)
 
 @question
 def iteration2():
@@ -291,9 +296,9 @@ def iteration6():
     return hasattr((x for x in 'abc'), 'next')
 
 @wrong(repr('blast off'))
-@wrong(repr(1))
-@wrong(repr(3))
-@wrong(repr(4))
+@wrong(1)
+@wrong(3)
+@wrong(4)
 def generators1():
     "placeholder for more generator quesitons to come"
     def countdown(n):
@@ -306,9 +311,9 @@ def generators1():
     c.next()
     return c.next()
 
-@wrong(repr(11 + 22 + 33))
-@wrong(repr(11 + 33))
-@wrong(repr(11 + 22 + 33 + 44 + 55))
+@wrong(11 + 22 + 33)
+@wrong(11 + 33)
+@wrong(11 + 22 + 33 + 44 + 55)
 def generators2():
     def odd(iterable):
         for x in iterable:
@@ -323,12 +328,12 @@ def generators2():
 def generators3():
     return range(20).__sizeof__() > xrange(1000).__sizeof__()
 
-@wrong(repr([1, 2, 3, 4]))
-@wrong(repr([1, 2, 5, 6]))
-@wrong(repr([1, 2, 6, 7]))
-@wrong(repr([1, 5, 2, 3]))
-@wrong(repr([1, 6, 7, 8]))
-@wrong(repr([1, 2, 6, 7]))
+@wrong([1, 2, 3, 4])
+@wrong([1, 2, 5, 6])
+@wrong([1, 2, 6, 7])
+@wrong([1, 5, 2, 3])
+@wrong([1, 6, 7, 8])
+@wrong([1, 2, 6, 7])
 def coroutines1():
     def counter(n):
         while True:
@@ -344,9 +349,9 @@ f = lambda: None
 class Foo(object):
     def __repr__(self):
         return "<type 'char'>"
-@wrong(repr((type(1), type('a'), type(None), type(()))))
-@wrong(repr((type(1), Foo(), type(f), type(()))))
-@wrong(repr((type(1), type('a'), type(None), type([]))))
+@wrong((type(1), type('a'), type(None), type(())))
+@wrong((type(1), Foo(), type(f), type(())))
+@wrong((type(1), type('a'), type(None), type([])))
 def type1():
     return type(1), type('a'), type(lambda: None), type([])
 

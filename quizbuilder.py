@@ -18,7 +18,7 @@ def _deindent(lines):
 
 def question(func):
     """Make the function below a question, with what it returns as the answer"""
-    return FillInTheBlank(_text_from_func(func), is_code=True, correct=Answer(repr(func()), is_expression=True))
+    return FillInTheBlank(_text_from_func(func), correct=Answer(repr(func()), is_code=True), is_code=True)
 
 def yes(func):
     """The function below is a yes/no question, and the answer is yes"""
@@ -38,19 +38,21 @@ def false(func):
 
 def yeahok(func):
     """Multiple choice question with just one answer: the right one"""
-    return MultipleChoice(_text_from_func(func), Answer(repr(func())), is_code=True)
+    return MultipleChoice(_text_from_func(func), Answer(repr(func()), is_code=True), is_code=True)
 
-def wrong(answer):
+def wrong(answer, is_code=True):
     """Supplies a wrong answer for a multiple choice question"""
+    if not isinstance(answer, basestring):
+        answer = repr(answer)
     def dec(func):
         func = _multiple_choice_passthrough(func)
-        func.answers.append(Answer(answer, correct=False))
+        func.answers.append(Answer(answer, correct=False, is_code=is_code))
         return func
     return dec
 
 def display_answer(func):
     """Uses what is printed to stdout when the function is run as the correct answer"""
-    ans = Answer(_stdout_output(func), correct=True)
+    ans = Answer(_stdout_output(func), correct=True, is_code=True)
     func = _fill_in_the_blank_passthrough(func)
     func.answers.append(ans)
     return func
@@ -67,25 +69,28 @@ def _stdout_output(func):
     with _RedirectStdout() as f:
         func()
     f.seek(0)
-    return f.read()
+    s = f.read()
+    if s.endswith('\n'):
+        s = s[:-1]
+    return s
 
 def _multiple_choice_passthrough(func):
     if isinstance(func, types.FunctionType):
-        return MultipleChoice(_text_from_func(func), correct=repr(func()), is_code=True)
+        return MultipleChoice(_text_from_func(func), correct=Answer(repr(func()), is_code=True), is_code=True)
     return func
 
 def _fill_in_the_blank_passthrough(func):
     if isinstance(func, types.FunctionType):
-        return FillInTheBlank(_text_from_func(func), correct=repr(func()), is_code=True)
+        return FillInTheBlank(_text_from_func(func), correct=Answer(repr(func()), is_code=True), is_code=True)
     return func
 
 def _checkbox_passthrough(func):
     if isinstance(func, types.FunctionType):
-        return FillInTheBlank(_text_from_func(func), corrects=repr(func()), is_code=True)
+        return FillInTheBlank(_text_from_func(func), corrects=Answer(repr(func()), is_code=True), is_code=True)
     return func
 
 def ask_all():
     """Ask all questions in the console"""
-    for q in reversed(Question.all_questions):
+    for q in Question.all_questions:
         print 'from', q.file
         q.ask()

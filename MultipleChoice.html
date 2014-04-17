@@ -1,9 +1,10 @@
-{{ '<pre><code>' if q.question_is_code }} {{ q.question }} {{ '</pre></code>' if q.question_is_code }}
-    <ul class="mutiple-choice-question">
-    {% for a in q.answers %}
+{{ q.html() }}
+    <div class="mutex">
+    <ul class="mutiple-choice-answers answers">
+    {% for a in q.alpha_answers %}
         <li>
-        <input type="radio" name="{{ 'answers' ~ q.id }}" value="{{ loop.index }}">
-        {{ '<pre><code>' if q.question_is_code }}{{ a }}{{ '</pre></code>' if q.question_is_code }}
+        <input type="radio" name="{{ 'answers' ~ q.id }}" class="{{ "correct" if a.correct else "incorrect" }}" value="{{ loop.index }}">{{ a.html() }}</input>
         </li>
     {% endfor %}
     </ul>
+    </div>

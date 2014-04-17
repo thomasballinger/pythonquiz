@@ -1,8 +1,7 @@
-<pre><code>{{ q.question }}</code></pre>
-    <ul class="textbox-question">
+{{ q.html() }}
+<input class="textbox-answer">
+<ul class="textbox-answers answers">
     {% for a in q.answers %}
-        <li>
-        <pre>{{ a }}</pre>
-        </li>
+        <li>{{ a.text }}</li>
     {% endfor %}
-    </ul>
+</ul>

@@ -1,21 +1,70 @@
 <html>
     <style>
+        .hooray {
+            background-color: green;
+        }
+        .oops {
+            background-color: red;
+        }
     </style>
+    <script src=jquery.js></script>
     <script>
-        function forEachOfClass(classname, func) {
-            var things = document.getElementsByClassName(classname);
-            Array.prototype.forEach.call(things, func);
+        $.fn.pressEnter = function(fn) {  
+
+            return this.each(function() {  
+                $(this).bind('enterPress', fn);
+                $(this).keyup(function(e){
+                    if(e.keyCode == 13)
+                    {
+                      $(this).trigger("enterPress");
+                    }
+                })
+            });  
+         }; 
+
+
+        var learnQuiz = function(){
+            $('.checkbox-answers input, .multiple-choice-answers input').click(function(){
+                $(this).addClass('clicked');
+                console.log($(this).closest('.mutex').find('input:not(.clicked)').length);
+                if ($(this).closest('.mutex').find('input:not(.clicked)').length == 1){
+                    $(this).closest('.mutex').find('input').prop('disabled', true);
+                }
+                if ($(this).hasClass('correct')){
+                    $(this).closest('li').addClass('hooray');
+                    $(this).closest('.mutex').find('input').prop('disabled', true);
+                } else {
+                    $(this).closest('li').addClass('oops');
+                }
+            });
+            $('.textbox-answer').next('ul').find('li').hide()
+            $('.textbox-answer').pressEnter(function(){
+                var normalize = function(s){
+                    return s.toLowerCase().replace(/ /g, '').replace('"', "'");
+                }
+                var answer = normalize(this.value);
+                console.log(answer);
+                var correct = false;
+                $(this).next('ul').find('li').each(function(i, el){
+                    if (answer === normalize(this.innerText)){
+                        correct = true;
+                    }
+                    console.log(this.innerText);
+                });
+                if (correct){
+                    $(this).addClass('hooray');
+                } else {
+                    $(this).addClass('oops');
+                    $('.textbox-answer').next('ul').find('li').show()
+                }
+                $(this).prop('disabled', true);
+            });
+            console.log('done');
         };
-
-        forEachOfClass("correct", function(x){
-            console.log('found one')
-            x.addEventListener('click', function(){
-                console.log("asdf");
-                a = this;
-                this.style.background = '';
-            })
-        });
-
+    </script>
+    <script>
+        $(learnQuiz);
+        console.log('scheduled');
     </script>
 
 <title>Python Quiz</title>

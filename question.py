@@ -1,6 +1,7 @@
 import inspect
 import random
 import re
+from jinja2 import Markup
 
 class Question(object):
     """Generic Question contructor
@@ -18,7 +19,7 @@ class Question(object):
         Question.all_questions.append(q)
         return q
 
-    def __init__(self, question, answer=None, correct=None, wrong=None, type='FillInTheBlank', is_code=False):
+    def __init__(self, question, answer=None, correct=None, wrong=None, type='FillInTheBlank', is_code=False, answers_are_code=False):
         """
         >>> q = Question('Why did the chicken?', correct='because', wrong=['dunno', 'hmm...'])
         >>> len(q.answers)
@@ -43,6 +44,9 @@ class Question(object):
         self.answers = ([Answer.to_answer(a) for a in list_if_single(answer)] +
                         [Answer.to_correct_answer(a) for a in list_if_single(correct)] +
                         [Answer.to_wrong_answer(a) for a in list_if_single(wrong)])
+        if answers_are_code:
+            for a in self.answers:
+                a.is_code = True
     def ask(self):
         """ask question in console"""
         print self.question
@@ -64,6 +68,14 @@ class Question(object):
                 print _red('bzzz! incorrect.')
         else:
             print _red('bzzz! incorrect.')
+    def html(self):
+        return (Markup('<pre><code>') if self.is_code else '') + str(self.text) + (Markup('</pre></code>') if self.is_code else '')
+    @property
+    def text(self):
+        return self.question
+    @property
+    def alpha_answers(self):
+        return sorted(self.answers, key=lambda a: str(a.text))
 
 class MultipleChoice(Question):
     def __init__(self, question, correct, *wrongs, **kwargs):
@@ -132,14 +144,19 @@ class Answer(object):
             return answer
         else:
             return Answer(answer, correct=True)
-    def __init__(self, text, correct=True, is_code=False, is_expression=False):
+    def __init__(self, text, correct=True, is_code=False):
         self.text = text
+        assert isinstance(self.text, str), self.text
         self.correct = correct
         self.is_code = is_code
-        self.is_expression = is_expression
     @property
     def wrong(self):
         return not self.correct
+    def html(self):
+        if '\n' in str(self.text):
+            return (Markup('<pre><code>') if self.is_code else '') + str(self.text) + (Markup('</pre></code>') if self.is_code else '')
+        else:
+            return (Markup('<code>') if self.is_code else '') + str(self.text) + (Markup('</code>') if self.is_code else '')
 
 def _get_module(a=1):
     s = inspect.stack()
