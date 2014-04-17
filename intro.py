@@ -45,7 +45,7 @@ exit2 = Checkbox("Which of these will exit a Python program, even if other non-d
                        "raise BaseException()"],
                       answers_are_code=True)
 
-multiple_statements = Checkbox("Which of these is a valid way to put multiple statements on one line?",
+multiple_statements = Checkbox("Which of these is a syntactically valid way to put multiple statements on one line?",
                       ["a = 1; foo(2); return 1"],
                       ["(a = 1, foo(2), return 1)",
                        "a, _, _ = 1, foo(2), return 1",

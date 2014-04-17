@@ -3,6 +3,8 @@ questions.py
 
 DSL for writing Python quizes in Python
 
+`python pyquiz intro.py -o test.html`
+
 Python Quiz
 -----------
 
