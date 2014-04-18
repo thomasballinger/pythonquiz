@@ -1,4 +1,4 @@
-from pyquiz import MultipleChoice, Checkbox, question, ask_all, yes, no, wrong, display_answer, true, false, yeahok
+from pyquiz import MultipleChoice, Checkbox, question, ask_all, yes, no, wrong, display_answer, true, false, yeahok, correct, wrongtxt, ignorereturn
 
 underscore = MultipleChoice('What does _ do at the interactive prompt?',
                    'Refers to the last non-None expression result',
@@ -325,7 +325,7 @@ def generators2():
     def elevens():
         for i in xrange(1000):
             yield i * 11
-    return sum(x for i, x in zip(odd(elevens()), range(3)))
+    return sum(x for i, x in zip(range(3), odd(elevens())))
 
 @true
 def generators3():
@@ -360,7 +360,121 @@ def type1():
 
 def classes1():
     class Foo(object):
-        """Very basic classse, whatever the intro covers"""
+        """Very basic classes, whatever the intro covers"""
+
+
+classes1 = Checkbox("Which are true of objects in Python?",
+                    ["Strings and lists are types of built-in objects",
+                     "Internal data",
+                     "Methods that perform operations involving that data",
+                     "All values in Python are objects",
+                     "The class statement is used to define new types of objects",
+                     ],
+                    ["Python objects make hiding data from the programmer easy",
+                     "Custom types of objects have inherit behavior from only one parent type",])
+
+@yeahok
+def classes2():
+    l = []
+    return dir(l)
+
+classes3 = MultipleChoice("Method names that start and end with double underscores",
+                          "Implement various language operations like +",
+                          "Are a good style for nameing new methods",
+                          "Are always implemented in the host language (c for cpython)",
+                          "Cannot be overridden by custom methods",
+                          "Use the same implementation for all types of objects")
+
+@wrongtxt("`class Stack(object)` means that Stack takes one argument at instantiation")
+@correct("`class Stack(object)` means the Stack type of object inherits fron `object`")
+@wrongtxt("Even though this class definition occurs in a function, the class will be globally accessible")
+@correct("Inside the class definition, the def keyword is used to create methods")
+@wrongtxt("The first parameter of each method is called self, a keyword in python with special rules")
+@correct("The first argument passed in to each method will always be the object itself")
+@correct("All operations involving attributes of the object must explicitly refer to the self variable")
+@correct("The __init__ method is automatically run to when an object of the type Stack is created")
+@correct("The variable x refers to [3, 4, 5] by the end of the function")
+@wrongtxt('The Stack object to which s referred no longer exists after `del s`')
+@ignorereturn
+def classes4():
+    """In this code..."""
+    class Stack(object):
+        def __init__(self):
+            self.stack = []
+        def push(self, thing):
+            self.stack.append(thing)
+        def pop(self):
+            return self.stack.pop()
+        def length(self):
+            return len(self.stack)
+    s = Stack()
+    t = s
+    s.push("Dave")
+    s.push(42)
+    s.push([3,4,5])
+    x = s.pop()
+    y = s.pop()
+    del s
+    return
+
+@wrong(['a', 1])
+@wrong(['a'])
+@wrong("<Stack object>")
+@display_answer
+def classes5():
+    class Stack(list):
+        def push(self, thing):
+            self.append(thing)
+    s = Stack()
+    s.append(1)
+    s.append('a')
+    print s
+
+class Repr(object):
+    def __repr__(self):
+        return "<Foo object>"
+
+@wrong([(Repr(), 1, 2), (1, 2), (1, 2), (1, 2)])
+@wrong([(Repr(), 1, 2), (1, 2), (1, 2), (Repr(), 1, 2)])
+@wrong([(Repr(), 1, 2), (Repr(), 1, 2), (1, 2), (Repr(), 1, 2)])
+@wrong([(1, 2), (Repr(), 1, 2), (1, 2), (Repr(), 1, 2)])
+@wrong([(1, 2), (1, 2), (1, 2), (1, 2)])
+def classes6():
+    class Foo(object):
+        def __repr__(self):
+            return "<Foo object>"
+        def bar(*args):
+            return args
+        @staticmethod
+        def baz(*args):
+            return args
+    return [Foo.bar(Foo(), 1, 2), Foo().bar(1, 2), Foo.baz(1, 2), Foo().baz(1, 2)]
+
+@yeahok
+def exceptions1():
+    try:
+        undefined_variable
+    except NameError as e:
+        return e
+
+contextmanagers1 = Checkbox('Which of these is a good fit for a context manager?',
+                            ['opening a file before working with is, and closing it afterwards',
+                             'temporarily setting a global variable to a value, and restoring its original value afterwards',
+                             'obtaining a lock on a shared resource in a mutlithreading environment, and releasing it afterwards',
+                             'cleanup that ought to happen regardless of whether a section of code is completed normally, or an exception is raised, jumping out of the code.'],
+                            ['adding 1 to a variable',
+                             'recursively traversing a binary search tree'])
+
+modules = Checkbox('Modules...',
+        ['have the same name as the filename in which their associated code is written',
+            'written in Python must have a .py suffix',
+            'are made accessible viw the import statement'],
+        ['are stupid',
+            'are always written in the host language (for cpython, c)'])
+
+@yeahok
+def help1():
+    help(issubclass)
 
 if __name__ == '__main__':
     ask_all()

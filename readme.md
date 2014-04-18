@@ -3,10 +3,13 @@ questions.py
 
 DSL for writing Python quizes in Python
 
+Construct Question objects, create interactive quizes in the terminal or browser!
+
 `python pyquiz intro.py -o test.html`
 
-Python Quiz
------------
+creates an html quiz called test.html.
+
+At the Python prompt:
 
     >>> chicken = Question("Why did the chicken cross the road?",
     ...     correct="to get to the other side",
@@ -17,9 +20,11 @@ Python Quiz
     incorrect
     >>> 
 
-Construct Question objects, create interactive quizes in the terminal or browser!
 
 I'm not planning for much collection of data, stats, etc. Just another way to learn material.
+
+Details
+-------
 
 There are three kinds of questions:
 
@@ -41,35 +46,15 @@ Questions from functions can be run automatically to find their
 correct answer, by recording what the function returns and prints
 to stdout.
 
-Autodiscovery
--------------
+Todo
+----
 
-When you create a question, it's added to the Questions.questions class attribute dictionary under the module in which the question was created.
+* Beautiful Web view (write some CSS!)
 
-TODO
-
-* Question class usable for multiple choice
-
-* command line interactive quiz for each question type
-  * multiple choice
-  * checkbox
-  * file in the blank
-
-* special case multiple choice where choices are true and false (like yes/no, no shuffle, t/f one letter)
-
-* Autodiscovery - what module was the top level decorator or constructor called from?
-
-* exciting decorator interface
-
-* create interactive vs all-together modes (ask() vs <name?>())
-
-* HTML rendering of questions!
-
-* JavaScript for interactive learning
-
-* JavaScript for full quizzes
+* Score-keeping mode in html
 
 * elimination of duplicate answers
+
 * if all answers are numbers, don't use numbers in the terminal (maybe letters instead?)
 
 * assert that true / false decorators are applied correctly, or make them both @bool
@@ -77,6 +62,7 @@ TODO
 
 * ensure mixing and matching works properly, and well-document which decorators can be used when
 
+* Add source, hint, etc. annotations on questions and display them
 
 Content Todo
 ------------
@@ -95,8 +81,6 @@ Content Todo
 * annotate questions with answers, make them better for learning
 
 * make a quiz based on questions people ask when reading code (like bpython)
-
-
 
 references:
 
@@ -126,21 +110,16 @@ other useful builtin iterators from Ned's talk: os.path
 draw some object graphs with lists #TODO come back to this, need image
 
 
-I think you should know a lot of this stuff within a month of learning Python,
-but maybe longer if Python is your first programming language
+Python Essential Reference Intro section Quiz
+---------------------------------------------
 
+If you're already pretty familiar with another programming language, and
+you're going to use Python for just one project, and don't want to read
+anything else, you should read pages 5 to 25 of
+pages of Python Essential Reference. Intro.py is a quiz to go along with that.
 
-Following the outline of Python Essential reference:
-====================================================
-
-Everything in the next section:  you should know it!
-
-cursory introduction
-
-Tutorial Introduction
----------------------
-
-If you're going to use Python for just one project, learn these things.
+Also consider the official Python tutorial, Dive Into Python, and the rest of
+Python Essential Reference.
 
 Left to do:
 
@@ -159,5 +138,4 @@ Left to do:
 * help(obj)
 * .__doc__
 * pydoc command line tool
-
 

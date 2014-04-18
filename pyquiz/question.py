@@ -3,6 +3,8 @@ import random
 import re
 from jinja2 import Markup
 
+#TODO refactor conversion code (passthroughs, changing question type)
+
 class Question(object):
     """Generic Question contructor
 
@@ -18,6 +20,9 @@ class Question(object):
             q.file = _get_module()
         Question.all_questions.append(q)
         return q
+
+    def unregister(self):
+        Question.all_questions.remove(self)
 
     def __init__(self, question, answer=None, correct=None, wrong=None, type='FillInTheBlank', is_code=False, answers_are_code=False):
         """
@@ -76,6 +81,12 @@ class Question(object):
     @property
     def alpha_answers(self):
         return sorted(self.answers, key=lambda a: str(a.text))
+    @property
+    def correct_answers(self):
+        return [a for a in self.answers if a.correct]
+    @property
+    def wrong_answers(self):
+        return [a for a in self.answers if a.wrong]
 
 class MultipleChoice(Question):
     def __init__(self, question, correct, *wrongs, **kwargs):

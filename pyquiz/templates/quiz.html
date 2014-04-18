@@ -23,7 +23,7 @@
             $('.checkbox-answers input, .multiple-choice-answers input').click(function(){
                 $(this).addClass('clicked');
                 console.log($(this).closest('.mutex').find('input:not(.clicked)').length);
-                if ($(this).closest('.mutex').find('input:not(.clicked)').length == 1){
+                if ($(this).closest('.mutex').find('input:not(.clicked)').length <= 1){
                     $(this).closest('.mutex').find('input').prop('disabled', true);
                 }
                 if ($(this).hasClass('correct')){
