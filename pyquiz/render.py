@@ -4,7 +4,6 @@ from jinja2 import Environment, PackageLoader
 from pyquiz.question import Question
 
 import imp
-import os
 
 
 def render(output, *filenames):
@@ -25,9 +24,6 @@ def main():
     parser.add_argument('modules', nargs='+', help='names of modules to import for questions')
     parser.add_argument('-o', '--output', action='store', help='name of output file')
     args = parser.parse_args()
-    print args
-    print args.output
-    print args.modules
     render(args.output, *args.modules)
 
 if __name__ == '__main__':

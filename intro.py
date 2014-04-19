@@ -7,7 +7,7 @@ underscore.explanation = ("_ refers to the last non-None result returned in the 
                  "special in executed programs. It's conventionally used to refer to "
                  "variables that aren't going to be used again.")
 
-executable = Checkbox("Which of these are required to Python program runnable form the command line?",
+executable = Checkbox("Which of these are required to make a Python program runnable from the command line?",
                       ["Add `#!/usr/bin/env python' to the top of the script",
                        "Set the unix permissions of the file to executable via `chmod u+x`",
                        "Put the script in a folder listed in the PATH environmental variable"],
@@ -465,16 +465,30 @@ contextmanagers1 = Checkbox('Which of these is a good fit for a context manager?
                             ['adding 1 to a variable',
                              'recursively traversing a binary search tree'])
 
-modules = Checkbox('Modules...',
+modules1 = Checkbox('Modules...',
         ['have the same name as the filename in which their associated code is written',
             'written in Python must have a .py suffix',
-            'are made accessible viw the import statement'],
-        ['are stupid',
-            'are always written in the host language (for cpython, c)'])
+            'are made accessible via the import statement'],
+        ['are always written in the host language (for cpython, c)'])
 
-@yeahok
-def help1():
-    help(issubclass)
+modules2 = Checkbox('from mymodule import MyClass',
+        ["Runs all of the code in mymodule",
+         "creates a variable called MyClass in the current namespace and binds the class to it"],
+        ["creates a variable called mymodule and binds the module object to it"], is_code=True)
+
+modules3 = Checkbox('from mymodule import MyClass as mc',
+        ["Runs all of the code in mymodule",
+         "creates a variable called mc in the current namespace and binds the class to it"],
+        ["creates a variable called mymodule and binds the module object to it"], is_code=True)
+
+help1 = Checkbox('The following are real ways to get help in Python:',
+        ['>>> help(reduce)',
+         '>>> reduce.__doc__',
+         '$ pydoc reduce',
+         '>>> dir(reduce)'],
+        ['>>> help reduce',
+         '>>> reduce.__help__',
+         '>>> doc(reduce)'], answers_are_code=True)
 
 if __name__ == '__main__':
     ask_all()
