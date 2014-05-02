@@ -416,6 +416,7 @@ def classes4():
 
 @wrong(['a', 1])
 @wrong(['a'])
+@wrong([1])
 @wrong("<Stack object>")
 @display_answer
 def classes5():
@@ -424,7 +425,7 @@ def classes5():
             self.append(thing)
     s = Stack()
     s.append(1)
-    s.append('a')
+    s.push('a')
     print s
 
 class Repr(object):
