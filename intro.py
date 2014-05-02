@@ -470,12 +470,12 @@ modules1 = Checkbox('Modules...',
         ['are always written in the host language (for cpython, c)'])
 
 modules2 = Checkbox('from mymodule import MyClass',
-        ["runs all of the code in mymodule",
+        ["executes mymodule",
          "creates a variable called MyClass in the current namespace and binds the class to it"],
         ["creates a variable called mymodule and binds the module object to it"], is_code=True)
 
 modules3 = Checkbox('from mymodule import MyClass as mc',
-        ["runs all of the code in mymodule",
+        ["executes mymodule",
          "creates a variable called mc in the current namespace and binds the class to it"],
         ["creates a variable called mymodule and binds the module object to it"], is_code=True)
 
