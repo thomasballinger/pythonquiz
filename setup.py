@@ -1,11 +1,11 @@
 from setuptools import setup
-import pyquiz
 
 setup(
     name="pyquiz",
-    version = pyquiz.__version__,
+    version = '0.0.2',
     author = "Tom Ballinger",
     author_email = "thomasballinger@gmail.com",
+    url='https://github.com/thomasballinger/pythonquiz',
     description = "Library for writing Python language quizes",
     license = "MIT",
     install_requires = ['jinja2'],

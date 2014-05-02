@@ -138,7 +138,7 @@ file2 = Checkbox("Which of these objects share many methods with file objects?",
 
 file2 = Checkbox("Which of these expressions evaluates to a reversed string? (where the initial string is s)",
                       ["s[::-1]",
-                       "''.join(reversed())",
+                       "''.join(reversed(s))",
                        ],
                       ["s.reverse()",
                        "reversed(s)",
@@ -157,12 +157,12 @@ def repr1():
 def repr2():
     return len(repr('abc'))
 
-@wrong(3)
+@wrong(5)
 @wrong(7)
 def repr3():
     return len(str('abc'))
 
-comprehensions = Checkbox("Which are valid comprehensions in Python?",
+comprehensions = Checkbox("Which of these comprehensions will run without errors in a fresh Python interpreter session?",
                       ["(x for x in 'ab')",
                        "[x+y for x, y in zip('adsf', 'zvxc')]",
                        "{x:y for x, y in zip(range(10), 'abc')}",
@@ -233,7 +233,10 @@ def dicts1():
     return dict({'a':1}, b=2, c=3)
 
 @wrong([6, 7])
+@wrong(repr('something'))
+@wrong(6)
 def dicts2():
+    """What does the dicts2 return?"""
     d = {1:'a', 'b':2, (4, 5):[6, 7]}
     d.get(4, 'something')
 
