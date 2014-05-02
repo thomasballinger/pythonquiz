@@ -53,6 +53,8 @@ to stdout.
 Todo
 ----
 
+* make pip installable
+
 * Beautiful web view (write some CSS!)
 
 * Add source, hint, etc. annotations on questions and display them
