@@ -7,13 +7,6 @@ underscore.explanation = ("_ refers to the last non-None result returned in the 
                  "special in executed programs. It's conventionally used to refer to "
                  "variables that aren't going to be used again.")
 
-executable = Checkbox("In a unix-y environment, which of these are required to make a Python script executable from any directory?",
-                      ["Add `#!/usr/bin/env python' to the top of the script",
-                       "Set the unix permissions of the file to executable with `chmod u+x`",
-                       "Put the script in a folder listed in the PATH environmental variable"],
-                      ["Add the file to the PYTHONPATH environmental variable",
-                       "Put the script in a folder listed in the PYTHONPATH environmental variable",
-                       "Add the file to the PATH environmental variable"])
 @question
 def division1():
     """Assume Python 2.7"""
@@ -490,6 +483,14 @@ help1 = Checkbox('The following are real ways to get help in Python:',
         ['>>> help reduce',
          '>>> reduce.__help__',
          '>>> doc(reduce)'], answers_are_code=True)
+
+executable = Checkbox("In a unix-y environment, which of these are required to make a Python script executable from any directory?",
+                      ["Add `#!/usr/bin/env python' to the top of the script",
+                       "Set the unix permissions of the file to executable with `chmod u+x`",
+                       "Put the script in a folder listed in the PATH environmental variable"],
+                      ["Add the file to the PYTHONPATH environmental variable",
+                       "Put the script in a folder listed in the PYTHONPATH environmental variable",
+                       "Add the file to the PATH environmental variable"])
 
 if __name__ == '__main__':
     ask_all()
