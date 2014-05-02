@@ -124,7 +124,7 @@ file1 = Checkbox("Which of these are methods of file objects",
                        ".next()",
                        ],
                       [".count()",
-                       ".format()"
+                       ".format()",
                        ".encode()"], answers_are_code=True)
 
 file2 = Checkbox("Which of these objects share many methods with file objects?",
@@ -485,7 +485,7 @@ help1 = Checkbox('The following are real ways to get help in Python:',
          '>>> doc(reduce)'], answers_are_code=True)
 
 executable = Checkbox("In a unix-y environment, which of these are required to make a Python script executable from any directory?",
-                      ["Add `#!/usr/bin/env python' to the top of the script",
+                      ["Add `#!/usr/bin/env python' or similar to the top of the script",
                        "Set the unix permissions of the file to executable with `chmod u+x`",
                        "Put the script in a folder listed in the PATH environmental variable"],
                       ["Add the file to the PYTHONPATH environmental variable",
