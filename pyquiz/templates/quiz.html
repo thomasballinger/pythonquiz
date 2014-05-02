@@ -62,11 +62,12 @@
     </script>
     <script>
         $(learnQuiz);
-        console.log('scheduled');
+        $(function(){$(".JSWarning").hide()})
     </script>
 
 <title>Python Quiz</title>
 <div class="content">
+    <div class="JSWarning">JavaScript is required</div>
     <ul>
     {% for q in questions %}
        <li class="question"> {% include q.__class__.__name__ + '.html' %} </li>
