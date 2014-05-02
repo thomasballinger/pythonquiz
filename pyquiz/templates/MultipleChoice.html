@@ -3,7 +3,7 @@
     <ul class="multiple-choice-answers answers">
     {% for a in q.alpha_answers %}
         <li>
-        <input type="radio" name="{{ 'answers' ~ q.id }}" class="{{ "correct" if a.correct else "incorrect" }}" value="{{ loop.index }}">{{ a.html() }}</input>
+        <input type="radio" name="{{ 'answers-' ~ q.id }}" class="{{ "correct" if a.correct else "incorrect" }}" value="{{ loop.index }}">{{ a.html() }}</input>
         </li>
     {% endfor %}
     </ul>

@@ -381,7 +381,7 @@ def classes2():
 
 classes3 = MultipleChoice("Method names that start and end with double underscores",
                           "Implement various language operations like +",
-                          "Are a good style for nameing new methods",
+                          "Are a great idea, this style should be used for naming new methods",
                           "Are always implemented in the host language (c for cpython)",
                           "Cannot be overridden by custom methods",
                           "Use the same implementation for all types of objects")

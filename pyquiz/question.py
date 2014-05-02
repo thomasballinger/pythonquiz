@@ -21,6 +21,10 @@ class Question(object):
         Question.all_questions.append(q)
         return q
 
+    @property
+    def id(self):
+        return Question.all_questions.index(self)
+
     def unregister(self):
         Question.all_questions.remove(self)
 
