@@ -1,0 +1,18 @@
+li.question {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid black;
+
+}
+div.prompt {
+    margin-bottom: 5px;
+}
+li {
+    list-style-type: none;
+}
+.answers li {
+    margin: 5px;
+}
+div.content {
+    width = 600px;
+}

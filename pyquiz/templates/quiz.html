@@ -3,7 +3,8 @@
         .hooray { background-color: green; }
         .oops { background-color: red; }
     </style>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="screen.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src=jquery.js></script>
     <script>
         $.fn.pressEnter = function(fn) {  
@@ -65,10 +66,11 @@
     </script>
 
 <title>Python Quiz</title>
-<ul>
-{% for q in questions %}
-   <li class="question"> {% include q.__class__.__name__ + '.html' %} </li>
-{% endfor %}
-</ul>
-
+<div class="content">
+    <ul>
+    {% for q in questions %}
+       <li class="question"> {% include q.__class__.__name__ + '.html' %} </li>
+    {% endfor %}
+    </ul>
+</div>
 </html>

@@ -7,15 +7,16 @@ underscore.explanation = ("_ refers to the last non-None result returned in the 
                  "special in executed programs. It's conventionally used to refer to "
                  "variables that aren't going to be used again.")
 
-executable = Checkbox("Which of these are required to make a Python program runnable from the command line?",
+executable = Checkbox("In a unix-y environment, which of these are required to make a Python script executable from any directory?",
                       ["Add `#!/usr/bin/env python' to the top of the script",
-                       "Set the unix permissions of the file to executable via `chmod u+x`",
+                       "Set the unix permissions of the file to executable with `chmod u+x`",
                        "Put the script in a folder listed in the PATH environmental variable"],
                       ["Add the file to the PYTHONPATH environmental variable",
                        "Put the script in a folder listed in the PYTHONPATH environmental variable",
                        "Add the file to the PATH environmental variable"])
 @question
 def division1():
+    """Assume Python 2.7"""
     return 5 / 2
 
 @question
@@ -26,7 +27,7 @@ def division2():
 def division3():
     return divmod(5, 2)
 
-exit1 = Checkbox("Which of these will exit a Python program",
+exit1 = Checkbox("Which of these will exit a Python program without printing a stack trace?",
                       ["quit()",
                        "exit()",
                        "raise SystemExit()",
@@ -472,12 +473,12 @@ modules1 = Checkbox('Modules...',
         ['are always written in the host language (for cpython, c)'])
 
 modules2 = Checkbox('from mymodule import MyClass',
-        ["Runs all of the code in mymodule",
+        ["runs all of the code in mymodule",
          "creates a variable called MyClass in the current namespace and binds the class to it"],
         ["creates a variable called mymodule and binds the module object to it"], is_code=True)
 
 modules3 = Checkbox('from mymodule import MyClass as mc',
-        ["Runs all of the code in mymodule",
+        ["runs all of the code in mymodule",
          "creates a variable called mc in the current namespace and binds the class to it"],
         ["creates a variable called mymodule and binds the module object to it"], is_code=True)
 
