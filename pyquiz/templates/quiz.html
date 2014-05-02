@@ -53,7 +53,7 @@
                     $(this).addClass('hooray');
                 } else {
                     $(this).addClass('oops');
-                    $('.textbox-answer').next('ul').find('li').show()
+                    $(this).next('ul').find('li').show()
                 }
                 $(this).prop('disabled', true);
             });
