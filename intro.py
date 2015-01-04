@@ -459,6 +459,8 @@ def foo(x):
     return 3
 def bar(x):
     return 3
+def baz(x):
+    return 3
 
 @wrong(foo)
 @wrong(bar)
@@ -474,6 +476,23 @@ def decorators1():
 
     return bar
 
+@wrong(foo)
+@wrong(bar)
+@wrong(baz)
+@wrong(7)
+@wrong(8)
+@wrong(5)
+def decorators2():
+    def foo(x):
+        def baz(z):
+            return x(z) + 3
+        return baz
+
+    @foo
+    def bar(y):
+        return y + 5
+
+    return bar(2)
 
 
 contextmanagers1 = Checkbox('Which of these is a good fit for a context manager?',
