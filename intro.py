@@ -455,6 +455,27 @@ def exceptions1():
     except NameError as e:
         return e
 
+def foo(x):
+    return 3
+def bar(x):
+    return 3
+
+@wrong(foo)
+@wrong(bar)
+@wrong(4)
+@wrong(7)
+def decorators1():
+    def foo(x):
+        return 3
+
+    @foo
+    def bar(y):
+        return 4 + y
+
+    return bar
+
+
+
 contextmanagers1 = Checkbox('Which of these is a good fit for a context manager?',
                             ['opening a file before working with is, and closing it afterwards',
                              'temporarily setting a global variable to a value, and restoring its original value afterwards',
