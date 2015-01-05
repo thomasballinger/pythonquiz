@@ -362,13 +362,13 @@ def classes1():
 
 classes1 = Checkbox("Which are true of objects in Python?",
                     ["Strings and lists are types of built-in objects",
-                     "Internal data",
-                     "Methods that perform operations involving that data",
+                     "Objects may possess internal data",
+                     "Objects may have methods that perform operations involving that data",
                      "All values in Python are objects",
                      "The class statement is used to define new types of objects",
                      ],
                     ["Python objects make hiding data from the programmer easy",
-                     "Custom types of objects have inherit behavior from only one parent type",])
+                     "Custom types of objects inherit behavior from only one parent type",])
 
 @yeahok
 def classes2():
