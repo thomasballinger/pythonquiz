@@ -19,7 +19,7 @@ def _deindent(lines):
     return [line[indent:] for line in lines]
 
 def question(func):
-    """Make the function below a question, with what it returns as the answer"""
+    """Make the function below a Question, with what it returns as the answer"""
     return FillInTheBlank(_text_from_func(func), correct=Answer(repr(func()), is_code=True), is_code=True)
 
 def yes(func):
