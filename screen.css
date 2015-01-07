@@ -5,11 +5,14 @@ li.question {
 
 }
 
-li.explanation {
+div.explanation {
     padding-top: 10px;
     padding-bottom: 10px;
-    border-bottom: 1px solid black;
     background-color: #D6FFE0;
+}
+
+.hidden {
+    display: none;
 }
 
 div.prompt {

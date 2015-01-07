@@ -20,7 +20,6 @@
             });  
          }; 
 
-
         var learnQuiz = function(){
             $('.checkbox-answers input, .multiple-choice-answers input').click(function(){
                 $(this).addClass('clicked');
@@ -33,6 +32,7 @@
                     $(this).closest('.mutex').find('input').prop('disabled', true);
                 } else {
                     $(this).closest('li').addClass('oops');
+                    $(this).closest('.question').find('.explanation').removeClass('hidden');
                 }
             });
             $('.textbox-answer').next('ul').find('li').hide()
@@ -54,6 +54,7 @@
                 } else {
                     $(this).addClass('oops');
                     $(this).next('ul').find('li').show()
+                    $(this).closest('.question').find('.explanation').removeClass('hidden');
                 }
                 $(this).prop('disabled', true);
             });
@@ -70,10 +71,12 @@
     <div class="JSWarning">JavaScript is required</div>
     <ul>
     {% for q in questions %}
-       <li class="question"> {% include q.__class__.__name__ + '.html' %} </li>
+       <li class="question"> 
+        {% include q.__class__.__name__ + '.html' %}
         {% if q.explanation %}
-            <li class="explanation"> {% include 'Explanation.html' %} </li>
+            <div class="explanation hidden"> {% include 'Explanation.html' %} </div>
         {% endif %}
+        </li>
     {% endfor %}
     </ul>
 </div>
