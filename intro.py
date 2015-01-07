@@ -1,4 +1,4 @@
-from pyquiz import MultipleChoice, Checkbox, question, ask_all, yes, no, wrong, display_answer, true, false, yeahok, correct, wrongtxt, ignorereturn
+from pyquiz import MultipleChoice, Checkbox, question, ask_all, yes, no, wrong, display_answer, true, false, yeahok, correct, wrongtxt, ignorereturn, explanation
 
 underscore = MultipleChoice('What does _ do at the interactive prompt?',
                    'Refers to the last non-None expression result',

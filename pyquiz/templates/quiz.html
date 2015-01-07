@@ -72,7 +72,7 @@
     {% for q in questions %}
        <li class="question"> {% include q.__class__.__name__ + '.html' %} </li>
         {% if q.explanation %}
-            <li class="explanation"> {% include Explanation.html %} </li>
+            <li class="explanation"> {% include 'Explanation.html' %} </li>
         {% endif %}
     {% endfor %}
     </ul>
