@@ -7,6 +7,7 @@ underscore.explanation = ("_ refers to the last non-None result returned in the 
                  "special in executed programs. It's conventionally used to refer to "
                  "variables that aren't going to be used again.")
 
+@explanation("Python 2 assumes integer division by default.")
 @question
 def division1():
     """Assume Python 2.7"""

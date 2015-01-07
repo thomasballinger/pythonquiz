@@ -89,6 +89,14 @@ def display_answer(func):
     func.answers.append(ans)
     return func
 
+def explanation(explanation_text):
+    def dec(question):
+        if not isinstance(question, Question):
+            raise ValueError("Explanation must take a Question object as an argument.")
+        question.explanation = explanation_text
+        return question
+    return dec
+
 class _RedirectStdout(object):
     def __enter__(self):
         self.orig_stdout = sys.stdout
