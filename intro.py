@@ -13,10 +13,12 @@ def division1():
     """Assume Python 2.7"""
     return 5 / 2
 
+@explanation("'//' is the floor division operator.")
 @question
 def division2():
     return 5 // 2
 
+@explanation("divmod takes two numbers and returns a tuple of their quotient and remainder.")
 @question
 def division3():
     return divmod(5, 2)
@@ -47,6 +49,7 @@ multiple_statements = Checkbox("Which of these is a syntactically valid way to p
                        "[locals().__setitem__('a', 1), foo(2), __return__(1)]"],
                       answers_are_code=True)
 
+@explanation("Python requires that indentation remain consistent within a block of code, not across different blocks (though it's better style to keep it consistent across blocks).")
 @yes
 def indentation1():
  """Is this function valid Python?"""
@@ -56,6 +59,7 @@ def indentation1():
    a = 10
  return a
 
+@explanation("You can keep the block of code following conditional statements on the same line.")
 @yes
 def indentation2():
  """Is this function valid Python?"""
