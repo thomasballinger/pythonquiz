@@ -4,6 +4,17 @@ li.question {
     border-bottom: 1px solid black;
 
 }
+
+div.explanation {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #D6FFE0;
+}
+
+.hidden {
+    display: none;
+}
+
 div.prompt {
     margin-bottom: 5px;
 }
